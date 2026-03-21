@@ -13,81 +13,73 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr auto;
-  background: linear-gradient(to bottom, #fff 0%, #fff 48%, #ecf8db 68%, #d9f0c7 100%);
+  background: linear-gradient(to bottom, #fff 0%, #fff 58%, #ecf8db 76%, #d9f0c7 100%);
 }
 .top {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 64px;
+  justify-content: center;
   text-align: center;
-  padding-left: 126px;
-  padding-right: 126px;
+  padding: 0 40px;
 }
-.logo { margin-bottom: 48px; }
-.logo img { width: 253px; height: 82px; object-fit: contain; }
+.logo { margin-bottom: 40px; }
+.logo img { width: 200px; height: auto; object-fit: contain; }
 h1 {
-  font-size: 52px;
+  font-size: 40px;
   font-weight: 500;
   line-height: 1.22;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
   color: #111;
-  max-width: 1010px;
-  margin-bottom: 16px;
+  max-width: 780px;
+  margin-bottom: 14px;
 }
-.glow {
-  position: relative;
-  display: inline;
-}
+.glow { position: relative; display: inline; }
 .glow::after {
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: 3px;
+  left: 0; right: 0; bottom: 2px;
   height: 3px;
   background: #FF9DE3;
   border-radius: 2px;
 }
 .sub {
-  font-size: 36px;
+  font-size: 22px;
   font-weight: 400;
   color: #111;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 .sub em { font-style: italic; }
 .bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 48px;
-  gap: 12px;
+  padding: 0 40px 44px;
+  gap: 10px;
 }
-.form-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.form-row { display: flex; align-items: center; gap: 10px; }
 .form-row input {
-  width: 340px;
-  height: 60px;
+  width: 320px;
+  height: 56px;
   border: 1.5px solid #d8d8d0;
   border-radius: 10px;
   outline: none;
-  padding: 0 20px;
+  padding: 0 18px;
   font-size: 15px;
   font-family: 'Inter', sans-serif;
   color: #111;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
 }
 .form-row input::placeholder { color: #b8b8a8; }
 .form-row input.error { border-color: #FF9DE3; }
 .form-row button {
-  height: 60px;
-  padding: 0 28px;
+  height: 56px;
+  padding: 0 24px;
   background: #111;
   color: #fff;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
@@ -95,28 +87,20 @@ h1 {
 }
 .form-row button:hover { background: #333; }
 .error-msg { font-size: 13px; color: #c0408a; display: none; }
-.counter { font-size: 14px; color: #aaa; font-family: 'Inter', sans-serif; }
+.counter { font-size: 13px; color: #aaa; font-family: 'Inter', sans-serif; }
 .counter span { font-weight: 500; color: #888; }
-.footer { font-size: 14px; color: #6aaa40; line-height: 1.9; text-align: center; font-family: 'Inter', sans-serif; }
-.success {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
+.footer { font-size: 13px; color: #6aaa40; line-height: 1.9; text-align: center; font-family: 'Inter', sans-serif; }
+.success { display: none; flex-direction: column; align-items: center; gap: 10px; }
 .success-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 24px;
   border: 1.5px solid #9DFFBC;
   border-radius: 999px;
   background: rgba(157,255,188,0.1);
-  font-size: 15px;
-  color: #111;
+  font-size: 14px; color: #111;
 }
 .success-dot { width: 8px; height: 8px; border-radius: 50%; background: #9DFFBC; flex-shrink: 0; }
-.success-sub { font-size: 13px; color: #a8a888; }
+.success-sub { font-size: 12px; color: #a8a888; }
 </style>
 </head>
 <body>
@@ -124,7 +108,7 @@ h1 {
 <div class="top">
   <div class="logo">
     <img src="undrlyn_logo.png" alt="undrlyn"
-      onerror="this.parentElement.innerHTML='<div style=\'font-size:44px;font-weight:700;letter-spacing:-2px;color:#0d0d0d\'>undrlyn</div>'">
+      onerror="this.parentElement.innerHTML='<div style=\'font-size:36px;font-weight:700;letter-spacing:-2px;color:#0d0d0d\'>undrlyn</div>'">
   </div>
   <h1>You smiled when you read it, reached for the highlighter &amp; made the line <span class="glow">glow</span>.</h1>
   <p class="sub">Why did I highlight that? <em>You'll never quite remember.</em></p>
@@ -132,7 +116,7 @@ h1 {
 
 <div class="bottom">
   <div class="form-row" id="formRow">
-    <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email" />
+    <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="email"/>
     <button onclick="submit()">Notify me</button>
   </div>
   <div class="error-msg" id="errMsg">Please enter a valid email address.</div>
@@ -148,23 +132,23 @@ h1 {
 </div>
 
 <script>
-var count = 104, done = false;
-function isValid(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }
+var count=104,done=false;
+function isValid(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());}
 function submit(){
-  if(done) return;
-  var inp = document.getElementById('emailInput');
-  var err = document.getElementById('errMsg');
-  if(!isValid(inp.value)){ inp.classList.add('error'); err.style.display='block'; inp.focus(); return; }
-  inp.classList.remove('error'); err.style.display='none'; done=true;
-  count++; document.getElementById('num').textContent=count;
+  if(done)return;
+  var inp=document.getElementById('emailInput');
+  var err=document.getElementById('errMsg');
+  if(!isValid(inp.value)){inp.classList.add('error');err.style.display='block';inp.focus();return;}
+  inp.classList.remove('error');err.style.display='none';done=true;
+  count++;document.getElementById('num').textContent=count;
   document.getElementById('formRow').style.display='none';
   document.getElementById('successBlock').style.display='flex';
 }
 document.getElementById('emailInput').addEventListener('input',function(){
-  if(isValid(this.value)){ this.classList.remove('error'); document.getElementById('errMsg').style.display='none'; }
+  if(isValid(this.value)){this.classList.remove('error');document.getElementById('errMsg').style.display='none';}
 });
-document.getElementById('emailInput').addEventListener('keydown',function(e){ if(e.key==='Enter') submit(); });
-function tick(){ setTimeout(function(){ if(!done){ count++; document.getElementById('num').textContent=count; } tick(); }, Math.floor(Math.random()*27000)+18000); }
+document.getElementById('emailInput').addEventListener('keydown',function(e){if(e.key==='Enter')submit();});
+function tick(){setTimeout(function(){if(!done){count++;document.getElementById('num').textContent=count;}tick();},Math.floor(Math.random()*27000)+18000);}
 tick();
 </script>
 </body>
