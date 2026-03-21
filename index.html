@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>undrlyn — something is being built</title>
+<meta name="description" content="You smiled when you read it, reached for the highlighter & made the line glow.">
+<meta property="og:title" content="undrlyn">
+<meta property="og:description" content="Something is being built. For the reader who means it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom,
+      #ffffff 0%,
+      #ffffff 28%,
+      #f2fae6 52%,
+      #e6f5d2 72%,
+      #d8eebc 100%
+    );
+    overflow-x: hidden;
+  }
+
+  /* LOGO */
+  .logo-section {
+    padding-top: clamp(40px, 7vh, 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .logo-img {
+    height: clamp(32px, 5vw, 48px);
+    width: auto;
+    display: block;
+  }
+
+  /* fallback text logo if image fails */
+  .logo-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: #0d0d0d;
+    line-height: 1;
+    margin-bottom: 6px;
+    display: none;
+  }
+
+  .logo-bars {
+    display: flex;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .logo-bars span { flex: 1; height: 4px; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: clamp(40px, 7vh, 72px) 24px clamp(24px, 4vh, 44px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(14px, 2.5vh, 24px);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.3s;
+  }
+
+  .headline {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 4.5vw, 54px);
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.03em;
+    color: #1a1a1a;
+    max-width: 820px;
+  }
+
+  .glow-word {
+    position: relative;
+    display: inline;
+    white-space: nowrap;
+  }
+  /* underline only under "glow", not the period */
+  .glow-word .glow-inner {
+    position: relative;
+    display: inline;
+  }
+  .glow-word .glow-inner::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    height: 3px;
+    background: #FF9DE3;
+    border-radius: 2px;
+  }
+
+  .subline {
+    font-size: clamp(15px, 2vw, 22px);
+    font-weight: 400;
+    color: #3a3a38;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  /* FORM */
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 0 24px clamp(40px, 6vh, 64px);
+    width: 100%;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .form-pill {
+    display: flex;
+    width: 100%;
+    max-width: 460px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid #d0d0c0;
+    background: rgba(255,255,255,0.88);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-pill:focus-within {
+    border-color: #b0b090;
+    box-shadow: 0 0 0 3px rgba(157,255,188,0.22);
+  }
+  .form-pill.error {
+    border-color: #FF9DE3;
+    box-shadow: 0 0 0 3px rgba(255,157,227,0.18);
+  }
+
+  .email-input {
+    flex: 1;
+    min-width: 0;
+    height: 52px;
+    border: none;
+    outline: none;
+    padding: 0 20px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    background: transparent;
+    letter-spacing: -0.01em;
+  }
+  .email-input::placeholder { color: #b0b09a; }
+
+  .notify-btn {
+    height: 52px;
+    padding: 0 26px;
+    background: #141414;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    border-radius: 0 10px 10px 0;
+    transition: background 0.15s;
+  }
+  .notify-btn:hover { background: #2c2c2c; }
+
+  .error-msg { font-size: 13px; color: #c0408a; display: none; }
+  .error-msg.show { display: block; }
+
+  .counter-line { font-size: 14px; color: #9ea888; letter-spacing: -0.01em; }
+  .counter-line .num { font-weight: 500; color: #848c70; }
+
+  /* SUCCESS */
+  .success-block {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .success-block.show { display: flex; }
+
+  .success-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 28px;
+    border: 1.5px solid #9DFFBC;
+    border-radius: 999px;
+    background: rgba(157,255,188,0.12);
+    font-size: 15px;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+  }
+  .success-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #9DFFBC;
+    flex-shrink: 0;
+  }
+  .success-sub { font-size: 13px; color: #a8a888; }
+
+  /* FOOTER */
+  .footer-line {
+    padding-bottom: clamp(28px, 4vh, 48px);
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.7s;
+  }
+  .footer-line p {
+    font-size: clamp(12px, 1.4vw, 14px);
+    color: #88a060;
+    line-height: 1.9;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .headline { font-size: clamp(20px, 6.5vw, 30px); }
+    .form-pill { max-width: 100%; }
+  }
+
+  @media (max-width: 380px) {
+    .form-pill {
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: visible;
+      border: none;
+      background: transparent;
+      gap: 10px;
+    }
+    .email-input {
+      border: 1.5px solid #d0d0c0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.88);
+      width: 100%;
+      height: 50px;
+    }
+    .notify-btn {
+      border-radius: 10px;
+      width: 100%;
+      height: 50px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div class="logo-section">
+    <img
+      src="undrlyn_logo.png"
+      class="logo-img"
+      alt="undrlyn"
+      onerror="this.style.display='none';document.querySelector('.logo-text').style.display='block';"
+    />
+    <div class="logo-text">undrlyn</div>
+    <div class="logo-bars">
+      <span style="background:#9DF7FF;"></span>
+      <span style="background:#FF9DE3;"></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1 class="headline">
+      You smiled when you read it, reached for<br>
+      the highlighter &amp; made the line <span class="glow-word"><span class="glow-inner">glow</span>.</span>
+    </h1>
+    <p class="subline">Why did I highlight that? You'll never quite remember.</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-section">
+
+    <div id="formWrap" style="width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <div class="form-pill" id="formPill">
+        <input
+          class="email-input"
+          type="email"
+          id="emailInput"
+          placeholder="Enter your email"
+          autocomplete="email"
+          inputmode="email"
+        />
+        <button class="notify-btn" onclick="handleSubmit()">Notify me</button>
+      </div>
+      <div class="error-msg" id="errorMsg">Please enter a valid email address.</div>
+    </div>
+
+    <div class="success-block" id="successBlock">
+      <div class="success-pill">
+        <div class="success-dot"></div>
+        Good. We'll find you when it's ready.
+      </div>
+      <div class="success-sub">No spam. Just one quiet email when we launch.</div>
+    </div>
+
+    <div class="counter-line">
+      Join <span class="num" id="counterNum">104</span> readers waiting.
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-line">
+    <p>
+      Not a notes app. Not a reading tracker.<br>
+      Something quieter. For the reader who means it.
+    </p>
+  </div>
+
+<script>
+  var count = 104;
+  var submitted = false;
+
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  }
+
+  function handleSubmit() {
+    if (submitted) return;
+    var input = document.getElementById('emailInput');
+    var pill  = document.getElementById('formPill');
+    var err   = document.getElementById('errorMsg');
+
+    if (!isValidEmail(input.value)) {
+      pill.classList.add('error');
+      err.classList.add('show');
+      input.focus();
+      return;
+    }
+
+    pill.classList.remove('error');
+    err.classList.remove('show');
+    submitted = true;
+    count++;
+    document.getElementById('counterNum').textContent = count;
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('successBlock').classList.add('show');
+  }
+
+  document.getElementById('emailInput').addEventListener('input', function () {
+    if (isValidEmail(this.value)) {
+      document.getElementById('formPill').classList.remove('error');
+      document.getElementById('errorMsg').classList.remove('show');
+    }
+  });
+
+  document.getElementById('emailInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+
+  function tick() {
+    setTimeout(function () {
+      if (!submitted) {
+        count++;
+        document.getElementById('counterNum').textContent = count;
+      }
+      tick();
+    }, Math.floor(Math.random() * 27000) + 18000);
+  }
+
+  tick();
+</script>
+
+</body>
+</html>
