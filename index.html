@@ -110,7 +110,7 @@ h1{font-size:36px;font-weight:500;line-height:1.2;letter-spacing:-0.02em;color:#
     </div>
     <div class="success-sub">No spam. Just one quiet email when we launch.</div>
   </div>
-  <p class="footer">Not a notes app. Not a reading tracker.<br>Something quieter is being built.<br>For the reader who means it.</p>
+  <p class="footer">Not a notes app. Not a reading tracker.<br>Something quieter is being built. For the reader who means it.</p>
 </div>
 
 <script>
@@ -152,7 +152,20 @@ async function go(){
       },
       body:JSON.stringify({email:inp.value.trim()})
     });
-  }catch(e){}
+  }catch(e){
+    if(e||true){
+      var check=await fetch(SUPABASE_URL+'/rest/v1/waitlist?email=eq.'+encodeURIComponent(inp.value.trim())+'&select=email',{
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+      });
+      var exists=await check.json();
+      if(exists&&exists.length>0){
+        inp.classList.add('error');
+        document.getElementById('errMsg').textContent="hey, you're already on the list. we haven't forgotten you.";
+        document.getElementById('errMsg').style.display='block';
+        return;
+      }
+    }
+  }
 
   done=true;
   await loadCount();
