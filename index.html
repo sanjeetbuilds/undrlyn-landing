@@ -43,7 +43,7 @@ h1{font-size:36px;font-weight:500;line-height:1.2;letter-spacing:-0.02em;color:#
 }
 .form-row input::placeholder{color:#c0c0b0;}
 .form-row input:focus{border-color:#bbbba8;background:rgba(255,255,255,0.95);}
-.form-row input.error{border-color:#555550;}
+.form-row input.error{border-color:#111111;}
 @media(max-width:600px){.form-row input{height:64px !important;padding:0 24px !important;font-size:16px !important;border-radius:14px !important;}}
 .form-row button{
   height:52px;padding:0 22px;background:#111;color:#fff;
@@ -55,7 +55,7 @@ h1{font-size:36px;font-weight:500;line-height:1.2;letter-spacing:-0.02em;color:#
 .error-msg{font-size:12px;color:#c0408a;display:none;}
 .counter{font-size:13px;color:#888880;font-family:'Inter',sans-serif;}
 .counter span{font-weight:600;color:#FF9DE3;}
-.footer{font-size:13px;color:#5a9e32;line-height:1.9;text-align:center;font-family:'Inter',sans-serif;margin-top:0;padding:32px 28px 32px;}
+.footer{font-size:13px;color:#5a9e32;line-height:1.9;text-align:center;font-family:'Inter',sans-serif;margin-top:0;padding:16px 28px 24px;}
 body{
     overflow:hidden;
     height:100vh;
@@ -169,7 +169,23 @@ body{
 </div>
 
 <script>
-var count=104,done=false;
+var done=false;
+var start=new Date('2026-03-22').getTime();
+var now=new Date().getTime();
+var days=Math.floor((now-start)/(1000*60*60*24));
+var count=104;
+for(var i=0;i<days;i++){
+  var seed=((i+1)*2246822519+(i*2654435761))>>>0;
+  var r=seed%1000;
+  if(r<5) count+=31;
+  else if(r<15) count+=17;
+  else if(r<40) count+=11;
+  else if(r<80) count+=9;
+  else if(r<150) count+=3;
+  else if(r<280) count+=2;
+  else if(r<450) count+=1;
+}
+document.getElementById('num').textContent=count;
 function isValid(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());}
 function go(){
   if(done)return;
