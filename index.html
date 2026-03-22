@@ -141,30 +141,23 @@ async function go(){
   if(!isValid(inp.value)){inp.classList.add('error');err.style.display='block';inp.focus();return;}
   inp.classList.remove('error');err.style.display='none';
 
-  try{
-    await fetch(SUPABASE_URL+'/rest/v1/waitlist',{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
-        'Content-Type':'application/json',
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify({email:inp.value.trim()})
-    });
-  }catch(e){
-    if(e||true){
-      var check=await fetch(SUPABASE_URL+'/rest/v1/waitlist?email=eq.'+encodeURIComponent(inp.value.trim())+'&select=email',{
-        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-      });
-      var exists=await check.json();
-      if(exists&&exists.length>0){
-        inp.classList.add('error');
-        document.getElementById('errMsg').textContent="hey, you're already on the list. we haven't forgotten you.";
-        document.getElementById('errMsg').style.display='block';
-        return;
-      }
-    }
+var res=await fetch(SUPABASE_URL+'/rest/v1/waitlist',{
+    method:'POST',
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+SUPABASE_KEY,
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify({email:inp.value.trim()})
+  });
+
+  if(res.status===409||res.status===400){
+    inp.classList.add('error');
+    document.getElementById('errMsg').style.color='#888';
+    document.getElementById('errMsg').textContent="hey, you\u2019re already on the list. we haven\u2019t forgotten you.";
+    document.getElementById('errMsg').style.display='block';
+    return;
   }
 
   done=true;
