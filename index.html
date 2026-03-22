@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>undrlyn</title>
+<title>undrlyn — keep what moved you</title>
+<meta name="description" content="You highlighted it because it said something you couldn't. undrlyn keeps what a book did to you.">
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
 body{
-  height:100vh;
-  overflow:hidden;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:72px;
+  gap:64px;
   background:linear-gradient(to bottom,#fff 0%,#fff 55%,#eaf7dc 75%,#d9f0c7 100%);
+  padding:48px 24px;
 }
 .top{
   display:flex;
@@ -25,7 +27,7 @@ body{
   text-align:center;
   width:100%;
 }
-.logo{margin-bottom:40px;}
+.logo{margin-bottom:32px;}
 .logo img{width:160px;height:auto;}
 h1{
   font-size:36px;
@@ -59,9 +61,16 @@ h1{
   gap:10px;
   width:100%;
 }
-.form-row{display:flex;align-items:center;gap:12px;}
+.form-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  max-width:460px;
+}
 .form-row input{
-  width:280px;
+  flex:1;
+  min-width:0;
   height:52px;
   border:1.5px solid #e0e0d8;
   border-radius:12px;
@@ -88,13 +97,22 @@ h1{
   font-family:'Inter',sans-serif;
   cursor:pointer;
   white-space:nowrap;
+  flex-shrink:0;
   transition:opacity 0.15s;
 }
 .form-row button:hover{opacity:0.85;}
 .error-msg{font-size:12px;color:#c0408a;display:none;}
 .counter{font-size:13px;color:#b8b8a8;font-family:'Inter',sans-serif;}
 .counter span{font-weight:500;color:#989880;}
-.footer{font-size:13px;color:#5a9e32;margin-top:24px;line-height:1.85;text-align:center;font-family:'Inter',sans-serif;}
+.footer{
+  font-size:13px;
+  color:#5a9e32;
+  line-height:1.85;
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  margin-top:24px;
+  padding:0 16px;
+}
 .success{display:none;flex-direction:column;align-items:center;gap:10px;}
 .success-pill{
   display:flex;align-items:center;gap:10px;
@@ -106,6 +124,18 @@ h1{
 }
 .success-dot{width:8px;height:8px;border-radius:50%;background:#9DFFBC;flex-shrink:0;}
 .success-sub{font-size:12px;color:#a8a888;}
+
+@media(max-width:600px){
+  body{gap:36px;padding:40px 20px;}
+  .logo img{width:110px;}
+  h1{font-size:20px;letter-spacing:-0.3px;}
+  .sub{font-size:14px;}
+  .form-row{flex-direction:column;gap:10px;max-width:100%;}
+  .form-row input{width:100%;height:50px;font-size:15px;}
+  .form-row button{width:100%;height:50px;font-size:15px;}
+  .footer{font-size:12px;margin-top:16px;}
+  .counter{font-size:12px;}
+}
 </style>
 </head>
 <body>
@@ -113,7 +143,7 @@ h1{
 <div class="top">
   <div class="logo">
     <img src="undrlyn_logo.png" alt="undrlyn"
-      onerror="this.parentElement.innerHTML='<div style=\'font-size:32px;font-weight:700;letter-spacing:-1.5px;color:#0d0d0d\'>undrlyn</div>'">
+      onerror="this.parentElement.innerHTML='<div style=\'font-size:28px;font-weight:700;letter-spacing:-1.5px;color:#0d0d0d\'>undrlyn</div>'">
   </div>
   <h1>You smiled when you read it, reached for the highlighter &amp; made the line <span class="glow">glow</span>.</h1>
   <p class="sub">Why did I highlight that? <em>You'll never quite remember.</em></p>
@@ -133,7 +163,7 @@ h1{
     <div class="success-sub">No spam. Just one quiet email when we launch.</div>
   </div>
   <p class="counter">Join <span id="num">104</span> readers waiting.</p>
-  <p class="footer">Not a notes app. Not a reading tracker.<br>Something quieter is being built. For the reader who means it.</p>
+  <p class="footer">Not a notes app. Not a reading tracker.<br>Something quieter. For the reader who means it.</p>
 </div>
 
 <script>
